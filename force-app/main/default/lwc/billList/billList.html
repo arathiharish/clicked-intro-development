@@ -1,0 +1,44 @@
+<template>
+    <lightning-input
+            name="enter the value to be searched"
+            label="Search when user hits the 'enter' key"
+            type="search" onchange={handleSearchChange}
+    >   </lightning-input>
+    <lightning-card title="Bills" icon-name="standard:account">
+        <lightning-layout multiple-rows>
+            <template if:true={bills}>
+                <lightning-layout-item size="12">
+                    <lightning-layout>
+                        <lightning-layout-item size="2">
+                            <strong>Invoice Number</strong>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2">
+                            <strong>Balance</strong>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2">
+                            <strong>Account Name</strong>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+                <template for:each={filteredData} for:item="bill">
+                    <lightning-layout-item key={bill.Id} size="12">
+                        <lightning-layout>
+                            <lightning-layout-item size="2">
+                                {bill.Invoice_Number__c}
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2">
+                                {bill.Balance__c}
+                            </lightning-layout-item>
+                            <lightning-layout-item size="2">
+                                {bill.Account__r.Name}
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </lightning-layout-item>
+                </template>
+            </template>
+            <template if:false={bills}>
+                <p>Error loading bills</p>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+</template>
